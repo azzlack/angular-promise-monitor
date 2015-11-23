@@ -1,5 +1,5 @@
 # angular-promise-monitor
-Tiny and fast library for monitoring promises in `angular` applications. Inspired by [angular-promise-tracker](https://github.com/ajoslin/angular-promise-tracker).
+Tiny and fast library for monitoring promises in `angular` applications. Inspired by [angular-promise-tracker](https://github.com/ajoslin/angular-promise-tracker), but with faster GUI updates and smaller footprint.
 
 ## How to use
 HTML:
