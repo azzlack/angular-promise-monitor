@@ -54,6 +54,8 @@
 
                     // Reset monitored list
                     monitored = [];
+
+                    updateActive();
                 };
 
                 return self;
