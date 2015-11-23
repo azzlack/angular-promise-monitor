@@ -1,8 +1,3 @@
-/*
- * eyecatch.promise-monitor - v1.0.0
- * file: http-interceptor.js
- */
-
 (function () {
     angular.module('eyecatch.promise-monitor').config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push(['$q', function($q) {

@@ -1,8 +1,3 @@
-/*
- * eyecatch.promise-monitor - v1.0.0
- * file: promise-monitor.js
- */
-
 (function () {
     angular.module('eyecatch.promise-monitor', []).provider('promiseMonitor', function () {
         this.$get = ['$q', function ($q) {

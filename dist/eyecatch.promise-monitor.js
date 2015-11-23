@@ -1,8 +1,10 @@
-/*
- * eyecatch.promise-monitor - v1.0.0
- * file: promise-monitor.js
+/**
+ * eyecatch-promise-monitor - An Angular module for monitoring promises
+ * @version v1.0.0
+ * @author Ove Andersen <ove.andersen@outlook.com>
+ * @link https://github.com/azzlack/angular-promise-monitor
+ * @license Apache-2.0
  */
-
 (function () {
     angular.module('eyecatch.promise-monitor', []).provider('promiseMonitor', function () {
         this.$get = ['$q', function ($q) {
@@ -75,11 +77,13 @@
     });
 })();
 
-/*
- * eyecatch.promise-monitor - v1.0.0
- * file: http-interceptor.js
+/**
+ * eyecatch-promise-monitor - An Angular module for monitoring promises
+ * @version v1.0.0
+ * @author Ove Andersen <ove.andersen@outlook.com>
+ * @link https://github.com/azzlack/angular-promise-monitor
+ * @license Apache-2.0
  */
-
 (function () {
     angular.module('eyecatch.promise-monitor').config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push(['$q', function($q) {
