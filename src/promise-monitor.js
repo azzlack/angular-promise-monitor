@@ -6,27 +6,30 @@
 (function () {
     angular.module('eyecatch.promise-monitor', []).provider('promiseMonitor', function () {
         this.$get = ['$q', function ($q) {
-            function promiseMonitor(options) {
+            // ReSharper disable once InconsistentNaming
+            function PromiseMonitor(options) {
                 var monitored = [];
                 var self = this;
 
                 // Set default options if necessary
                 self.options = options || {};
-                self.active = false;
+                self.isActive = false;
 
-                var updateActive = function() {
-                    self.active = monitored.length > 0;
+                var updateActive = function () {
+                    self.isActive = monitored.length > 0;
                 };
 
-                self.addPromise = function(promise) {
+                self.addPromise = function (promise) {
                     var deferred = $q.defer();
                     monitored.push(deferred);
 
-                    deferred.promise.then(function() {
+                    updateActive();
+
+                    deferred.promise.then(function () {
                         monitored.splice(monitored.indexOf(deferred), 1);
 
                         updateActive();
-                    }, function() {
+                    }, function () {
                         monitored.splice(monitored.indexOf(deferred), 1);
 
                         updateActive();
@@ -57,13 +60,17 @@
                     // Reset monitored list
                     monitored = [];
                 };
+
+                return self;
             }
 
             return {
-                create: function(options) {
-                    return new promiseMonitor(options);
+                create: function (options) {
+                    return new PromiseMonitor(options);
                 }
             };
         }];
+
+        return this;
     });
 })();

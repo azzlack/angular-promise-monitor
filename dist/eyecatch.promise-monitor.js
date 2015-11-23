@@ -6,27 +6,30 @@
 (function () {
     angular.module('eyecatch.promise-monitor', []).provider('promiseMonitor', function () {
         this.$get = ['$q', function ($q) {
-            function promiseMonitor(options) {
+            // ReSharper disable once InconsistentNaming
+            function PromiseMonitor(options) {
                 var monitored = [];
                 var self = this;
 
                 // Set default options if necessary
                 self.options = options || {};
-                self.active = false;
+                self.isActive = false;
 
-                var updateActive = function() {
-                    self.active = monitored.length > 0;
+                var updateActive = function () {
+                    self.isActive = monitored.length > 0;
                 };
 
-                self.addPromise = function(promise) {
+                self.addPromise = function (promise) {
                     var deferred = $q.defer();
                     monitored.push(deferred);
 
-                    deferred.promise.then(function() {
+                    updateActive();
+
+                    deferred.promise.then(function () {
                         monitored.splice(monitored.indexOf(deferred), 1);
 
                         updateActive();
-                    }, function() {
+                    }, function () {
                         monitored.splice(monitored.indexOf(deferred), 1);
 
                         updateActive();
@@ -57,14 +60,18 @@
                     // Reset monitored list
                     monitored = [];
                 };
+
+                return self;
             }
 
             return {
-                create: function(options) {
-                    return new promiseMonitor(options);
+                create: function (options) {
+                    return new PromiseMonitor(options);
                 }
             };
         }];
+
+        return this;
     });
 })();
 
@@ -73,53 +80,49 @@
  * file: http-interceptor.js
  */
 
- (function () {
-    angular.module('eyecatch.promise-monitor', []).factory('monitorInjector', ['$q', function($q) {
-        var monitorRequest = {
-            request: function(config) {
-                // TODO: handle cached responses
-               if (config.monitor) {
-                   // Convert to array to simplify handling
-                   if (!angular.isArray(config.monitor)) {
-                       config.monitor = [config.monitor];
-                   }
+(function () {
+    angular.module('eyecatch.promise-monitor').config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push(['$q', function($q) {
+            return {
+                request: function (config) {
+                    // TODO: handle cached responses
+                    if (config.monitor) {
+                        // Convert to array to simplify handling
+                        if (!angular.isArray(config.monitor)) {
+                            config.monitor = [config.monitor];
+                        }
 
-                   config.$promiseMonitorDeferred = config.$promiseMonitorDeferred || [];
+                        config.$promiseMonitorDeferred = config.$promiseMonitorDeferred || [];
 
-                   // Create promises for each monitor
-                   angular.forEach(config.monitor, function (monitor) {
-                       config.$promiseMonitorDeferred.push(monitor.addPromise());
-                   });
-               }
+                        // Create promises for each monitor
+                        angular.forEach(config.monitor, function (monitor) {
+                            config.$promiseMonitorDeferred.push(monitor.addPromise());
+                        });
+                    }
 
-               return $q.when(config);
-            },
-            response: function (response) {
-               // TODO: handle cached responses
-               if (response.config && response.config.$promiseMonitorDeferred) {
-                   angular.forEach(response.config.$promiseMonitorDeferred, function (deferred) {
-                       deferred.resolve(response);
-                   });
-               }
+                    return $q.when(config);
+                },
+                response: function (response) {
+                    // TODO: handle cached responses
+                    if (response.config && response.config.$promiseMonitorDeferred) {
+                        angular.forEach(response.config.$promiseMonitorDeferred, function (deferred) {
+                            deferred.resolve(response);
+                        });
+                    }
 
-               return $q.when(response);
-            },
-            responseError: function (response) {
-               // TODO: handle cached responses
-                if (response.config && response.config.$promiseMonitorDeferred) {
-                    angular.forEach(response.config.$promiseMonitorDeferred, function (deferred) {
-                        deferred.reject(response);
-                    });
+                    return $q.when(response);
+                },
+                responseError: function (response) {
+                    // TODO: handle cached responses
+                    if (response.config && response.config.$promiseMonitorDeferred) {
+                        angular.forEach(response.config.$promiseMonitorDeferred, function (deferred) {
+                            deferred.reject(response);
+                        });
+                    }
+
+                    return $q.reject(response);
                 }
-
-                return $q.reject(response);
-            }
-       };
-
-       return monitorRequest;
-    }]);
-
-    angular.module('eyecatch.promise-monitor', []).config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.interceptors.push('monitorInjector');
+            };
+        }]);
     }]);
 })();
