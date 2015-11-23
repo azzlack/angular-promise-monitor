@@ -66,7 +66,7 @@
             };
         }];
     });
-});
+})();
 
 /*
  * eyecatch.promise-monitor - v1.0.0
@@ -122,4 +122,4 @@
     angular.module('eyecatch.promise-monitor', []).config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('monitorInjector');
     }]);
-});
+})();

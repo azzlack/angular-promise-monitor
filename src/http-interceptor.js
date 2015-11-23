@@ -52,4 +52,4 @@
     angular.module('eyecatch.promise-monitor', []).config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('monitorInjector');
     }]);
-});
+})();
