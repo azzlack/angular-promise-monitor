@@ -1,0 +1,22 @@
+{
+  "name": "eyecatch-promise-monitor",
+  "version": "1.0.0",
+  "main": "promise-tracker.js",
+  "readme": "../README.md",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Ove Andersen"
+  },
+  "repository": {
+    "url": "git://github.com/azzlack/angular-promise-monitor.git"
+  },
+  "homepage": "https://github.com/azzlack/angular-promise-monitor",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-uglify": "^1.5.1",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0"
+  }
+}
