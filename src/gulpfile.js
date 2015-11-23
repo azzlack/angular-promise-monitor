@@ -24,8 +24,9 @@ gulp.task('lint', function() {
 
 gulp.task('build', ['lint'], function() {
     return gulp.src(['./promise-monitor.js', './http-interceptor.js'])
-        .pipe(header(banner, { pkg : pkg } ))
         .pipe(concat('eyecatch.promise-monitor.js'))
+        .pipe(uglify({mangle: false, compress: false, output: {beautify: true}}))
+        .pipe(header(banner, { pkg : pkg } ))
         .pipe(gulp.dest('../dist'));
 });
 
@@ -33,7 +34,8 @@ gulp.task('minify', function() {
     return gulp.src('../dist/eyecatch.promise-monitor.js')
         .pipe(concat('eyecatch.promise-monitor.min.js'))
         .pipe(sourcemaps.init())
-        .pipe(uglify({preserveComments: 'all'}))
+        .pipe(uglify())
+        .pipe(header(banner, { pkg : pkg } ))
         .pipe(sourcemaps.write('../dist'))
         .pipe(gulp.dest('../dist'));
 });
