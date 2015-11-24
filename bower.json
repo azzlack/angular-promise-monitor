@@ -1,0 +1,25 @@
+{
+  "name": "eyecatch-promise-monitor",
+  "description": "An Angular module for monitoring promises",
+  "main": "",
+  "authors": [
+    "Ove Andersen <ove.andersen@outlook.com>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "angular",
+    "promise",
+    "deferred",
+    "monitor",
+    "track"
+  ],
+  "homepage": "https://github.com/azzlack/angular-promise-monitor",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
