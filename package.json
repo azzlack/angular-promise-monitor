@@ -2,7 +2,6 @@
   "name": "eyecatch-promise-monitor",
   "description": "An Angular module for monitoring promises",
   "version": "1.0.2",
-  "main": "promise-tracker.js",
   "license": "Apache-2.0",
   "author": "Ove Andersen <ove.andersen@outlook.com>",
   "repository": {
