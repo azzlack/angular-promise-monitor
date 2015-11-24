@@ -1,7 +1,7 @@
 {
   "name": "eyecatch-promise-monitor",
   "description": "An Angular module for monitoring promises",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "promise-tracker.js",
   "readme": "../README.md",
   "license": "Apache-2.0",
@@ -14,7 +14,13 @@
     "url": "https://github.com/azzlack/angular-promise-monitor/issues"
   },
   "homepage": "https://github.com/azzlack/angular-promise-monitor",
-  "keywords": ["angular", "promise", "deferred", "monitor", "track"],
+  "keywords": [
+    "angular",
+    "promise",
+    "deferred",
+    "monitor",
+    "track"
+  ],
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
