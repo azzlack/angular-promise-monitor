@@ -1,5 +1,5 @@
 {
-  "name": "eyecatch-promise-monitor",
+  "name": "angular-promise-monitor",
   "description": "An Angular module for monitoring promises",
   "version": "1.0.3",
   "license": "Apache-2.0",
