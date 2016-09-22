@@ -1,5 +1,5 @@
 (function () {
-    angular.module('eyecatch.promise-monitor').config(['$httpProvider', function ($httpProvider) {
+    angular.module('eyecatch.promise-monitor', []).config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push(['$q', function($q) {
             return {
                 request: function (config) {
